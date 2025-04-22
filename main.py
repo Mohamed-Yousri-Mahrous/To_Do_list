@@ -1,6 +1,11 @@
 from modules.task import add_task, mark_as_completed, show_tasks
 from modules.file_handler import get_file_info
-from modules.cli import clear_screen, pause, welcome, border
+from modules.cli import clear_screen, welcome, create_border
+from config import (
+    program_name,
+    program_description,
+    fun_list,
+)
 
 
 def main():
@@ -16,9 +21,9 @@ def main():
     while True:
         clear_screen()
         get_file_info()
-        welcome()
+        welcome(program_name, program_description, fun_list)
         choice = input("Enter Number from Function List: ").strip()
-        print(border)
+        print(create_border())
 
         if choice == "4":
             break

@@ -1,23 +1,20 @@
-from modules import (
-    border,
-    current_date,
-    current_time,
-    day_name,
-)
+from config import get_current_date, get_current_time, get_day_name
 from .file_handler import status_task_line, task_name_line, day_date_line
 import csv
-from .cli import pause
+from .cli import pause, create_border
 
 
 def add_task():
     """Add a task to the list."""
     task = input("Enter Name of task: ").strip()
-    print(border)
+    print(create_border())
     if task:
 
         with open("tasks.csv", "a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow([day_name, current_date, current_time, task, False])
+            writer.writerow(
+                [get_day_name(), get_current_date(), get_current_time(), task, False]
+            )
 
         print("\n>> Task added successfully!")
         pause()
@@ -48,7 +45,7 @@ def mark_as_completed():
     for index, task in enumerate(uncompleted_tasks, start=1):
         print(f"{index} - {task[task_name_line]}")
 
-    print(border)
+    print(create_border())
     try:
         task_index = int(input("Enter Number of task to mark as completed: ").strip())
 
@@ -82,10 +79,10 @@ def show_tasks():
             return
 
     tasks_today = [
-        task for task in tasks[1:] if task and task[day_date_line] == current_date
+        task for task in tasks[1:] if task and task[day_date_line] == get_current_date()
     ]
     if tasks_today:
-        print(f"{day_name} - {current_date}", end="\n\n")
+        print(f"{get_day_name()} - {get_current_date()}", end="\n\n")
         for index, row in enumerate(tasks_today, start=1):
             if row:
                 task_size = len(row[task_name_line]) + 8

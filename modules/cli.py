@@ -1,36 +1,26 @@
 import os
-from modules import border
 
 
 def pause():
     """
     Pause the program until the user presses Enter.
     """
-    print(border)
+    print(create_border())
     input("Press Enter to continue...")
 
 
-def welcome():
+def welcome(program_name, program_description, fun_list, border_size=80):
     """
     Display a welcome message.
     """
     message = [
-        border,
-        " Welcome to the To Do List program! ".center(80, "="),
-        " This program allows you to manage your tasks.".center(80, "="),
-        border,
+        create_border(),
+        f" Welcome to the {program_name} program! ".center(border_size, "="),
+        f" {program_description} ".center(border_size, "="),
+        create_border(),
+        fun_list,
+        create_border(),
     ]
-
-    fun_list = """      
-    1. Add a task
-    2. Mark a task as completed
-    3. Show tasks
-    4. Exit
-    """
-
-    message.append(fun_list)
-    message.append(border)
-
     print("\n".join(message))
 
 
@@ -39,3 +29,10 @@ def clear_screen():
     Clear the console screen.
     """
     os.system("cls" if os.name == "nt" else "clear")
+
+
+def create_border(border_size=80):
+    """
+    Create a border.
+    """
+    return "=" * border_size

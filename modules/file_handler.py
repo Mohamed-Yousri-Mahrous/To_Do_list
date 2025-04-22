@@ -1,5 +1,4 @@
-from config import TASK_FILE
-from modules import header_tasks
+from config import TASK_FILE, header_tasks
 import csv
 from pathlib import Path
 
@@ -34,8 +33,8 @@ def get_file_info():
     check_tasks_file()
 
     with open(TASK_FILE, "r", encoding="utf-8") as file:
-        tasks = csv.reader(file)
-        tasks = list(tasks)
+        tasks = list(csv.reader(file))
+
         number_of_tasks = len(tasks) - 1
         status_task_line = tasks[0].index("Completed")
         task_name_line = tasks[0].index("Task")
